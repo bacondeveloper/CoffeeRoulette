@@ -1,28 +1,48 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <coffee-roulette :staff="staff" :coffeeMaker="coffeeMaker"></coffee-roulette>
+    <button class="roulette-button" v-on:click="spinRoulette">Spin</button>
+    <div class="chosen-staff">{{ coffeeMaker }}</div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CoffeeRoulette from './components/CoffeeRoulette.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    CoffeeRoulette
+  },
+  data() {
+    return {
+      staff: [{
+        name: 'Joe',
+      }, {
+        name: 'Tom',
+      }, {
+        name: 'Martin',
+      }, {
+        name: 'Alice',
+      }, {
+        name: 'Bret',
+      }, {
+        name: 'Claire',
+      }, {
+        name: 'Dan',
+      }, {
+        name: 'Richard',
+      }],
+      coffeeMaker: ''
+    };
+  },
+  methods: {
+    spinRoulette: function(event) {
+      const idx = Math.floor(Math.random() * this.staff.length);
+      if (event) {
+        this.coffeeMaker = this.staff[idx]['name'];
+      }
+    }
   }
-}
+};
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
